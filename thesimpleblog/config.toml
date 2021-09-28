@@ -1,0 +1,4 @@
+baseURL = 'https://thegoodblog.github.io/'
+languageCode = 'en-us'
+title = 'I think, therefore I am'
+theme = 'tale'
