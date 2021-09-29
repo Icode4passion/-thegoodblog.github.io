@@ -2,17 +2,47 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>I think, therefore I am</title>
-    <link>https://icode4passion.github.io/thegoodblog.github.io/</link>
+    <link>/</link>
     <description>Recent content on I think, therefore I am</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Sep 2021 01:31:25 +0530</lastBuildDate><atom:link href="https://icode4passion.github.io/thegoodblog.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 Sep 2021 15:54:07 +0530</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Contact</title>
+      <link>/contact/</link>
+      <pubDate>Wed, 29 Sep 2021 16:57:45 +0530</pubDate>
+      
+      <guid>/contact/</guid>
+      <description>We will stay in touch please mail me at
+Page in Progress &amp;hellip;..</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Wed, 29 Sep 2021 16:31:15 +0530</pubDate>
+      
+      <guid>/about/</guid>
+      <description>Programmer love to code and enjoys every bit of life. my philosophy in life is my blog tile . &amp;lsquo;I Think Therefore I Am&amp;rsquo; coined by René Descartes (1596–1650) was a French philosopher and mathematician.
+Hope you enjoy my blogs. Thanks .</description>
+    </item>
+    
+    <item>
+      <title>Post Two</title>
+      <link>/posts/posttwo/</link>
+      <pubDate>Wed, 29 Sep 2021 15:54:07 +0530</pubDate>
+      
+      <guid>/posts/posttwo/</guid>
+      <description>Dummy Dummy is a content generation toolkit designed to make the development, testing and presentation of web prototypes less time consuming and more realistic. It does so by making it easy to populate static HTML with dynamic content, and by randomizing elements within a layout on subsequent loads of a document, in a way, simulating connectivity to a live database.
+Originally conceived as a tool for helping to simulate the high volume, rapidly changing content characteristics of online newspapers and magazines, it&amp;rsquo;s generalized enough to benefit the early stage front-end development of any website or application with content that frequently changes in length, form or nature.</description>
+    </item>
+    
     <item>
       <title>Mypost</title>
-      <link>https://icode4passion.github.io/thegoodblog.github.io/posts/mypost/</link>
+      <link>/posts/mypost/</link>
       <pubDate>Wed, 29 Sep 2021 01:31:25 +0530</pubDate>
       
-      <guid>https://icode4passion.github.io/thegoodblog.github.io/posts/mypost/</guid>
+      <guid>/posts/mypost/</guid>
       <description>##My New Post (Underline)
 &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;mate charest=&amp;#34;utf-8&amp;#34; /&amp;gt; &amp;lt;title&amp;gt;Hello world!&amp;lt;/title&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;Hello world!&amp;lt;/h1&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; Image: ![](https://pandao.github.io/editor.md/examples/images/4.jpg) </description>
     </item>

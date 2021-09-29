@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<title>Post Two | I think, therefore I am</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.88.1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="canonical" href="/posts/posttwo/">
+<link rel="alternate" type="application/rss+xml" href="" title="I think, therefore I am">
+
+<header>
+  
+    <a href="/" class="title">I think, therefore I am</a>
+  
+  
+    <nav>
+    
+      <a href="/about/">About</a>
+    
+      <a href="/posts/">Posts</a>
+    
+      <a href="/contact/">Contact</a>
+    
+    </nav>
+  
+</header>
+
+<article>
+  <header>
+    <h1>Post Two</h1>
+    <time datetime="2021-09-29T15:54:07&#43;05:30">September 29, 2021</time>
+  </header>
+  <h1 id="dummy">Dummy</h1>
+<p>Dummy is a content generation toolkit designed to make the development, testing and presentation of web prototypes less time consuming and more realistic. It does so by making it easy to populate static HTML with dynamic content, and by randomizing elements within a layout on subsequent loads of a document, in a way, simulating connectivity to a live database.</p>
+<p>Originally conceived as a tool for helping to simulate the high volume, rapidly changing content characteristics of online newspapers and magazines, it&rsquo;s generalized enough to benefit the early stage front-end development of any website or application with content that frequently changes in length, form or nature.</p>
+<p>Dummy can be useful in the early stages of a project&rsquo;s development, where basic questions and assumptions about how to architect the front-end must be tested and resolved to conclusion before engineers further down the Gantt diagram can begin their work of obfuscating yours.</p>
+<p>It can also been seen as a support tool for designers and front-end artisans ready to embrace the dark art of designing in-browser, as vastly different layout permutations can be generated and evaluated rapidly with each load of the page. Problems and shortcommings can be more quickly exposed.</p>
+<h3 id="dummy-can">Dummy can…</h3>
+<ul>
+<li>Insert randomly selected strings of placeholder text in various lengths and formats (e.g. headline, teaser, paragraph).</li>
+<li>Automagically crop and size high quality, news worthy, Creative Commons licensed placeholder images from a default pool – or from a specific folder or subset of folders that you provide.</li>
+<li>Flesh out highly variable, asset rich layouts quickly with friendly, human-readable logic for building loops and controlling probability.</li>
+<li>Allow you to focus on the important things – namely, the design and the code – not on copying and pasting (static) Lorem Ipsum, or hunting down plausible placeholder images.</li>
+<li>More. Not lots more, but a <em>bit</em> more!</li>
+</ul>
+<h3 id="you-can">You can…</h3>
+<ul>
+<li>Watch a screencast at <a href="https://vimeo.com/42252088">https://vimeo.com/42252088</a></li>
+<li>Ask questions and direct misgivings to <a href="http://twitter.com/kerns">http://twitter.com/kerns</a></li>
+<li>Fork, follow or download via <a href="https://github.com/kerns/dummy">https://github.com/kerns/dummy</a></li>
+</ul>
+<h3 id="more-info">More Info</h3>
+<p>Dummy&rsquo;s primary goal is to provide tools that speed front-end prototyping and QA. Whether you&rsquo;re meticulously crafting a fully responsive site with a myriad of CSS breakpoints, or just slapping together a half-baked idea – using Dummy should make it easier <em>at the earliest stages of development</em> to visualize, test and present something much closer to what your actual front-end will become under a variety of different conditions.</p>
+<p><strong>Dummy is for the front-end web worker who wonders…</strong></p>
+<ul>
+<li>How does this layout hold up with and without an image, or with multiple images?</li>
+<li>What is the maximum number of items that can appear in this list before it breaks the layout, or before it just stops looking good?</li>
+<li>How do the columns align and balance as the amount of content changes – or what&rsquo;s the longest word that can fit into this column without triggering unwanted overflow?</li>
+<li>What is the easiest way to demo the signed-in and signed-out states of this page?</li>
+<li>Do these CSS breakpoints hold water?</li>
+<li>How will this script perform within the DOM when it needs to process over 100 images? 1000 images?</li>
+</ul>
+<h3 id="why">Why?</h3>
+<p>Using Dummy in the early stages of front-end development can give you a new perspective on your work every time your document is reloaded in the browser, shortening and improving your test cycle by more quickly exposing weak-points or trouble areas as you go about marking up a new design. It&rsquo;s like watching a time-lapse video of your layout performing with real data.</p>
+<p>Subscribing to the belief that the earlier a problem can be made to surface, the easier and less painful it will be to deal with and debug, this is especially useful in projects with front-end code that should be delivered to another team for implementation as part of a phased hand-off.</p>
+<p>Dummy also supports designers and front-end artisans who find themselves increasingly attracted to In-Browser Design as a viable process for the creation, iteration, and client approval of their work. As does @beardedstudio. (<a href="http://blog.bearded.com/post/21447195970/mocking-up-is-hard-to-do">http://blog.bearded.com/post/21447195970/mocking-up-is-hard-to-do</a>)</p>
+<h3 id="requirements">Requirements</h3>
+<p>You need a development environment running Apache + PHP and compiled with support for GD (this covers most of them). If you want to play with URL segments or other advanced techniques then you&rsquo;ll need to have mod_rewrite enabled, and you&rsquo;ll need to enable the .htaccess file (included in /dummy/extras/), but again, this probably covers most local development environments. If you&rsquo;re not developing locally, …why aren&rsquo;t you developing locally?</p>
+<h3 id="todo">TODO</h3>
+<ul>
+<li>Optimize performance and memory usage.</li>
+<li>Integrate a Lorem Ipsum generator, together with some intuitive syntax for specifying parameters of the text you want generated (length in chars or words, casing, etc)</li>
+<li>Ability to call and define image crops from within CSS (i.e. ability to post image requests in the URL to dummy.php)</li>
+<li>Develop an easy way to link our broadcast dumb_luck outcomes, so that one outcome could bubble-over to another.</li>
+<li>Clean up the way errors and messages are formatted (i.e. abstract the HTML and inline styles that surround them)</li>
+<li>The image assets that ship with Dummy are highly geared for usage in editorial design. One could imagine separate asset packages for different types of projects (e.g. a commerce package with commercial product shots, a portfolio or gallery package with images that showcase art, architecture, or design).</li>
+</ul>
+<h3 id="license">License</h3>
+<p>Dummy is released under a Creative Commons Attribution-Share Alike 3.0 United States license (<a href="http://creativecommons.org/licenses/by-sa/3.0/us/)">http://creativecommons.org/licenses/by-sa/3.0/us/)</a>. Be a doll and let us know how you&rsquo;re using Dummy, or if you&rsquo;ve used it to help build, test or demo anything interesting.</p>
+<h3 id="credits">Credits</h3>
+<p>Credits and image license information can be found in dummy/CREDITS.md</p>
+
+</article>
+
+
+
+</html>

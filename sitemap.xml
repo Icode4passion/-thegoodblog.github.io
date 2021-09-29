@@ -2,17 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://icode4passion.github.io/thegoodblog.github.io/</loc>
+    <loc>/contact/</loc>
+    <lastmod>2021-09-29T16:57:45+05:30</lastmod>
+  </url><url>
+    <loc>/about/</loc>
+    <lastmod>2021-09-29T16:31:15+05:30</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2021-09-29T15:54:07+05:30</lastmod>
+  </url><url>
+    <loc>/posts/posttwo/</loc>
+    <lastmod>2021-09-29T15:54:07+05:30</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2021-09-29T15:54:07+05:30</lastmod>
+  </url><url>
+    <loc>/posts/mypost/</loc>
     <lastmod>2021-09-29T01:31:25+05:30</lastmod>
   </url><url>
-    <loc>https://icode4passion.github.io/thegoodblog.github.io/posts/mypost/</loc>
-    <lastmod>2021-09-29T01:31:25+05:30</lastmod>
+    <loc>/categories/</loc>
   </url><url>
-    <loc>https://icode4passion.github.io/thegoodblog.github.io/posts/</loc>
-    <lastmod>2021-09-29T01:31:25+05:30</lastmod>
-  </url><url>
-    <loc>https://icode4passion.github.io/thegoodblog.github.io/categories/</loc>
-  </url><url>
-    <loc>https://icode4passion.github.io/thegoodblog.github.io/tags/</loc>
+    <loc>/tags/</loc>
   </url>
 </urlset>
