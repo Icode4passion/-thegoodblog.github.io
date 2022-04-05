@@ -6,7 +6,19 @@
     <description>Recent content in Posts on I think, therefore I am</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Nov 2021 22:50:07 +0530</lastBuildDate><atom:link href="https://icode4passion.github.io/thegoodblog.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 05 Apr 2022 07:36:27 +0530</lastBuildDate><atom:link href="https://icode4passion.github.io/thegoodblog.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to Machine Learning</title>
+      <link>https://icode4passion.github.io/thegoodblog.github.io/posts/flaskmachinelearning/</link>
+      <pubDate>Tue, 05 Apr 2022 07:36:27 +0530</pubDate>
+      
+      <guid>https://icode4passion.github.io/thegoodblog.github.io/posts/flaskmachinelearning/</guid>
+      <description>Brief Intro to Machine Learning Machine learning Machine learning (ML) is the study of computer algorithms that can improve automatically through experience and by the use of data. Reference: Wiki
+Tools and Languages for Machine learning Python
+ Easy to learn Languages Many Good Machine Learning libraries are available in python  Libraries in Python Numpy NumPy is the fundamental package for scientific computing in Python.Numpy
+Pandas Pandas is an open source, BSD-licensed library providing high-performance, easy-to-use data structures and data analysis tools for the Python programming language.</description>
+    </item>
+    
     <item>
       <title>Python SQL-Data Transfer to Text File </title>
       <link>https://icode4passion.github.io/thegoodblog.github.io/posts/posttwo/</link>
