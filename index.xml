@@ -6,7 +6,18 @@
     <description>Recent content on I think, therefore I am</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Apr 2022 07:36:27 +0530</lastBuildDate><atom:link href="https://icode4passion.github.io/thegoodblog.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 27 May 2022 17:03:37 +0530</lastBuildDate><atom:link href="https://icode4passion.github.io/thegoodblog.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title> Python Machine Learning Prediction with Flask </title>
+      <link>https://icode4passion.github.io/thegoodblog.github.io/posts/ml_flaskapp/</link>
+      <pubDate>Fri, 27 May 2022 17:03:37 +0530</pubDate>
+      
+      <guid>https://icode4passion.github.io/thegoodblog.github.io/posts/ml_flaskapp/</guid>
+      <description>Introduction As a python and machine learning enthusiast , i love reading blogs and code. In this article we will use Python and Flask in Deploying Machine Learning algorithms.
+The main focus of the article will be how Flask/Python is used in deploying ML algorithms , we will not deep dive in to the Algorithms and their performance .
+The take away from the article will be how dataset is fed to flask app and how are we sending the prediction back via jinja templete and what modules are encountered during the process.</description>
+    </item>
+    
     <item>
       <title>Introduction to Machine Learning</title>
       <link>https://icode4passion.github.io/thegoodblog.github.io/posts/flaskmachinelearning/</link>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<title> Python Machine Learning Prediction with Flask  | I think, therefore I am</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.88.1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://icode4passion.github.io/thegoodblog.github.io/css/index.css">
+<link rel="canonical" href="https://icode4passion.github.io/thegoodblog.github.io/posts/ml_flaskapp/">
+<link rel="alternate" type="application/rss+xml" href="" title="I think, therefore I am">
+
+<header>
+  
+    <a href="https://icode4passion.github.io/thegoodblog.github.io/" class="title">I think, therefore I am</a>
+  
+  
+    <nav>
+    
+      <a href="/thegoodblog.github.io/about/">About</a>
+    
+      <a href="/thegoodblog.github.io/posts/">Posts</a>
+    
+      <a href="/thegoodblog.github.io/contacts/">Contacts</a>
+    
+    </nav>
+  
+</header>
+
+<article>
+  <header>
+    <h1> Python Machine Learning Prediction with Flask </h1>
+    <time datetime="2022-05-27T17:03:37&#43;05:30">May 27, 2022</time>
+  </header>
+  <h2 id="introhttpsipostimgccfbx4vlftintrojpg"><img src="https://i.postimg.cc/fbx4vLFt/Intro.jpg" alt="Intro"></h2>
+<h2 id="introduction">Introduction</h2>
+<p>As a python and machine learning enthusiast , i love reading blogs and code.
+In this article we will use Python and Flask in Deploying Machine Learning algorithms.</p>
+<p>The main focus of the article will be how Flask/Python is used in deploying ML algorithms ,
+we will not deep dive in to the Algorithms and their performance .</p>
+<p>The take away from the article will be how dataset is fed to flask app and
+how are we sending the prediction back via jinja templete and what modules are encountered during the process.</p>
+<hr>
+<h2 id="creating-flask-app">Creating Flask App</h2>
+<p>Lets get started with the code . I will not be concentrating on the Flask App Structure in this article please be noted .
+In the process of building the app we will be installing the libraries as needed.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">
+mkdir mlproj
+cd mlproj
+python -m venv env
+cd env/Scripts 
+activate
+
+pip install -r requirements.txt
+
+</code></pre></div><p>The above commands are used to create a folder , virtual environment and active the environmet with the libraries to be installed .
+requirements.txt has the following packages to be installed</p>
+<pre tabindex="0"><code>Flask
+joblib
+numpy
+pandas
+requests
+scikit-learn
+scipy
+six
+sklearn
+</code></pre><h3 id="lets-code">Let&rsquo;s code</h3>
+<p>In order for us to create a Machine Learning flask app we need a program or python file to train the data and results of the algorithm that ran with appropriate data has to dumped into a pkl file and other program reads the data and provides routes via flaks app to give us the predections of the data.</p>
+<h4 id="machine-learning-modeling-code">Machine learning Modeling code</h4>
+<p>Consider the first program to be a pure Machine Learning Algorithm python code . Will try to explain the process what exactly happens in the below code .
+In the below code for traing the model we will be using DecissionTreeClassifier from Sklearn library.</p>
+<p>Create a model.py in the folder and add below code in it</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#f92672">import</span> joblib
+<span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+<span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+<span style="color:#f92672">import</span> matplotlib <span style="color:#66d9ef">as</span> plt
+<span style="color:#f92672">from</span> sklearn.model_selection <span style="color:#f92672">import</span> train_test_split
+<span style="color:#f92672">from</span> sklearn.tree <span style="color:#f92672">import</span> DecisionTreeClassifier
+
+</code></pre></div><p>We are importing the pandas , numpy and matplotlib modules along with DecisionTreeClassifier.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">&#39;CO2 Emissions_Data.csv&#39;</span>)
+X <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>iloc[:,:<span style="color:#ae81ff">4</span>]
+y <span style="color:#f92672">=</span> df[<span style="color:#e6db74">&#39;CO2emissions&#39;</span>]
+X_train , X_test, y_train , y_test <span style="color:#f92672">=</span> train_test_split(X, y , test_size<span style="color:#f92672">=</span><span style="color:#ae81ff">0.3</span>,random_state<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+dtc <span style="color:#f92672">=</span> DecisionTreeClassifier(criterion<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;entropy&#34;</span>)
+dtc<span style="color:#f92672">.</span>fit(X_train, y_train)
+joblib<span style="color:#f92672">.</span>dump(dtc,<span style="color:#e6db74">&#34;dtc.pkl&#34;</span>)
+y_predict <span style="color:#f92672">=</span> dtc<span style="color:#f92672">.</span>predict(X_test)
+print(<span style="color:#e6db74">&#34;Accuracy:&#34;</span>,metrics<span style="color:#f92672">.</span>accuracy_score(y_test, y_predict))
+print(<span style="color:#e6db74">&#34;Accuracy:&#34;</span>,metrics<span style="color:#f92672">.</span>accuracy_score(y_test, y_predict))
+</code></pre></div><p>Read the data from the local directory which was already dowloaded from <a href="https://www.kaggle.com/">Kaggle</a> we are using pandas module to read it.
+Now once the data is read and is stored in the form of Dataframes .
+Since you have come along till here i would like to focus on the real problem that we are trying to solve .</p>
+<p>The Article here has data related to Co2 Emission , how the CO2 emission is creating problem to environment and this data set actually deals with Vehicles emitting CO2 and what factors contribute for this emission . Our main goal is to predict the Co2 Emission of the vehicle when provided with the similar kind of Data and to see how accurately the system or model has predicted it.</p>
+<p>The above code trains the data and stores the resut in the pickle formate . IN terms of Machine Learning the model has been trained we will be deducting or predecting the result based on the data provided in the pickle.</p>
+<blockquote>
+<p>After training a scikit-learn model, it is desirable to have a way to persist the model for future use without having to retrain. The following sections give you some hints on how to persist a scikit-learn model.
+What is joblib Python?
+Image result for joblib python wiki
+Joblib is a set of tools to provide lightweight pipelining in Python</p>
+</blockquote>
+<h4 id="flask-specific-code">Flask Specific code</h4>
+<p>Once the ML model is trained and ready we now from flask end,please try to import the specific modules</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> flask <span style="color:#f92672">import</span> Flask , request , render_template
+<span style="color:#f92672">import</span> joblib
+<span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+
+</code></pre></div><p>Add the routes in the app.py. Since the model has already been trained and our goal is to predict the CO2 emission , we need to input data from flask so that the trained model can get the prediction provided by DecissionTreeModel from model.py</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>route(<span style="color:#e6db74">&#39;/treepredict&#39;</span>,methods<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;GET&#39;</span>,<span style="color:#e6db74">&#39;POST&#39;</span>])
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">treepredict</span>():
+    <span style="color:#66d9ef">if</span> request<span style="color:#f92672">.</span>method<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;POST&#34;</span>:
+        dtc <span style="color:#f92672">=</span> joblib<span style="color:#f92672">.</span>load(<span style="color:#e6db74">&#34;dtc.pkl&#34;</span>)        
+        engineSize <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>form<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;engineSize&#39;</span>)
+        cylinders <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>form<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;cylinders&#39;</span>)
+        fuelConsumptionCity <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>form<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;fuelConsumptionCity&#39;</span>)
+        fuelConsumptionComb <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>form<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;fuelConsumptionComb&#39;</span>)        
+        X <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame([[engineSize,cylinders,fuelConsumptionCity,fuelConsumptionComb]],columns<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;engineSize&#34;</span>,<span style="color:#e6db74">&#34;cylinders&#34;</span>,<span style="color:#e6db74">&#34;fuelConsumptionCity&#34;</span>,<span style="color:#e6db74">&#34;fuelConsumptionComb&#34;</span>])        
+        prediction <span style="color:#f92672">=</span> dtc<span style="color:#f92672">.</span>predict(X)[<span style="color:#ae81ff">0</span>]        
+    <span style="color:#66d9ef">else</span>:
+        prediction <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;No sufficient data&#34;</span>    
+    <span style="color:#66d9ef">return</span> render_template(<span style="color:#e6db74">&#34;out.html&#34;</span>, output<span style="color:#f92672">=</span>prediction)
+</code></pre></div><p>The data from the forms is stored in respective variables and store in dataframe and is used as input to the model,
+since we already trained the model and the result is stored in the pkl form the      <br>
+dtc = joblib.load(&ldquo;dtc.pkl&rdquo;) , dtc has predict method which takes in the form values and sends the output to jinja.</p>
+<p>In the same directory create a html page and paste the below code .
+code for treepredict.html</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+    &lt;<span style="color:#f92672">head</span>&gt;
+        &lt;<span style="color:#f92672">title</span>&gt;Machine Learning App&lt;/<span style="color:#f92672">title</span>&gt;
+        &lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ url_for(&#39;static&#39;, filename=&#39;css/style.css&#39;) }}&#34;</span>&gt;
+    &lt;/<span style="color:#f92672">head</span>&gt;    
+    &lt;<span style="color:#f92672">body</span>&gt;
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;contact_form&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text-align: center;&#34;</span>&gt;
+            &lt;<span style="color:#f92672">h2</span>&gt;
+                CO2 Emission Prediction Data using KNC Algorithm 
+            &lt;/<span style="color:#f92672">h2</span>&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;contact_form&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text-align: center;&#34;</span>&gt;    
+        &lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;form&#34;</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;POST&#34;</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text-align: center;&#34;</span>&gt;
+            &lt;<span style="color:#f92672">fieldset</span>&gt;
+                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;input-box&#34;</span>&gt;
+                    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;engineSize&#34;</span>&gt;engineSize&lt;/<span style="color:#f92672">label</span>&gt;
+             &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number&#34;</span> <span style="color:#a6e22e">step</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;any&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;engineSize&#34;</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Enter Engine Size&#34;</span> <span style="color:#a6e22e">required</span>/&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;input-box&#34;</span>&gt;
+                &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cylinders&#34;</span>&gt;cylinders&lt;/<span style="color:#f92672">label</span>&gt;
+            &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cylinders&#34;</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Enter weight in kg&#34;</span> <span style="color:#a6e22e">required</span>/&gt;
+            &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;input-box&#34;</span>&gt;
+                &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fuelConsumptionCity&#34;</span>&gt;fuelConsumptionCity&lt;/<span style="color:#f92672">label</span>&gt;
+             &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number&#34;</span> <span style="color:#a6e22e">step</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;any&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fuelConsumptionCity&#34;</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Enter Fuel Consumption City&#34;</span> <span style="color:#a6e22e">required</span>/&gt;
+                &lt;/<span style="color:#f92672">div</span>&gt;
+                &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;input-box&#34;</span>&gt;
+                    &lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fuelConsumptionComb&#34;</span>&gt;fuelConsumptionComb&lt;/<span style="color:#f92672">label</span>&gt;   
+             &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;number&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fuelConsumptionComb&#34;</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;EnterFuel Consumption Comb&#34;</span> <span style="color:#a6e22e">required</span>/&gt;
+             &lt;/<span style="color:#f92672">div</span>&gt;
+             &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;input-box&#34;</span>&gt;
+                &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit_btn&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Run&#34;</span> /&gt;
+             &lt;/<span style="color:#f92672">div</span>&gt;
+            &lt;/<span style="color:#f92672">fieldset</span>&gt;            
+        &lt;/<span style="color:#f92672">form</span>&gt;
+        &lt;<span style="color:#f92672">div</span> &gt;
+            &lt;<span style="color:#f92672">table</span>&gt;
+                &lt;<span style="color:#f92672">tr</span>&gt;
+                    
+                &lt;/<span style="color:#f92672">tr</span>&gt;
+                &lt;<span style="color:#f92672">tr</span>&gt;
+                    &lt;<span style="color:#f92672">td</span>&gt;
+                        &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://c8.alamy.com/comp/P3J2YW/vector-artistic-drawing-illustration-of-car-air-co-pollution-P3J2YW.jpg&#34;</span>
+                        <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;img-fluid&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Sample image&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;400&#34;</span> 
+                        <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;300&#34;</span>&gt;
+                    &lt;/<span style="color:#f92672">td</span>&gt;
+                    
+                &lt;/<span style="color:#f92672">tr</span>&gt;                
+                &lt;<span style="color:#f92672">tr</span>&gt;
+                    &lt;<span style="color:#f92672">td</span>&gt;
+                        &lt;<span style="color:#f92672">h3</span>&gt;CO2 Combission&lt;/<span style="color:#f92672">h3</span>&gt; 
+                    &lt;/<span style="color:#f92672">td</span>&gt;
+                    &lt;<span style="color:#f92672">td</span>&gt;
+                        &lt;<span style="color:#f92672">h4</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text-align: center;&#34;</span>&gt;{{ output }}&lt;/<span style="color:#f92672">h4</span>&gt;
+                    &lt;/<span style="color:#f92672">td</span>&gt;
+                &lt;/<span style="color:#f92672">tr</span>&gt;
+              &lt;/<span style="color:#f92672">table</span>&gt;                    
+                         &lt;/<span style="color:#f92672">div</span>&gt;
+        
+    &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>Once the html file is created now lets roll the sleaves and run the application by adding the below code in app.py</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    app<span style="color:#f92672">.</span>run(host<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;0.0.0.0&#39;</span>, debug<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+
+</code></pre></div><p>We are specifing flask to run on local host and by default the port is 5000 , debug=True menas , app needs to be reloaded when eve any change is made in app.py
+App ran successfully with out any error and it is running in development mode in my local host</p>
+<p><img src="https://i.postimg.cc/1R6jP9Lz/app-run.jpg" alt="&lsquo;app_run&rsquo;"></p>
+<p>Now to check the host we add the route along with the localhost and port number which is by default 5000 http://localhost:5000/treepredict
+Oncec the url is hit , a form is diaplayed , fill in the data as required and the prediction based on the Tree Algorithm is displayed as show in below</p>
+<p>Enter the details , by default the resultant is &ldquo;No sufficient data&rdquo; below are the entered values
+<img src="https://i.postimg.cc/N0QZNLDV/Form-display.jpg" alt="&lsquo;form_data&rsquo;">
+Once we submit the values the Output is predicited by the ML algorithm
+<img src="https://i.postimg.cc/RCYKNH9w/co2-predict.jpg" alt="&lsquo;form_result&rsquo;"></p>
+<h3 id="building-docker-containeer">Building Docker containeer</h3>
+<p>Our app requires many containers a comman way to easily manage multiple containers is to use Docker Compose. But we will need to create a Dockerfile to build a container image for our application. Let’s create both Docker Compose and Dockerfile in the directory</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">FROM python:3.7
+WORKDIR /app
+COPY . .
+EXPOSE <span style="color:#ae81ff">5000</span>
+RUN python -m pip install --upgrade pip pip install -r requirements.txt
+ENTRYPOINT <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;python3&#34;</span> <span style="color:#f92672">]</span>
+CMD <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;app.py&#34;</span> <span style="color:#f92672">]</span> 
+</code></pre></div><p>Dockerfile has the below details</p>
+<ul>
+<li>Add an application folder to the container</li>
+<li>Copying the folder contents</li>
+<li>Expose TCP port 5000 to the host</li>
+<li>Install the libraries from requirements.txt</li>
+<li>Run the app</li>
+</ul>
+<p>Once we have a Dockerfile for application container, we can create a docker-compose.yml file, which will define all containers that the application will require to run.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">
+version: <span style="color:#e6db74">&#39;3.7&#39;</span>
+services:
+    web:
+        build: .
+        ports:
+            - <span style="color:#e6db74">&#34;5000:5000&#34;</span>
+        container_name: flaskMLapp
+</code></pre></div><p>We defined the web services and build the application using the below docker commands</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker-compose build
+docker-compose up
+</code></pre></div><p>Once the Application is build and conatiner is up we will see the same result as above.</p>
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this article we have created a Machine Learning model that predicts the CO2 emission for the same we used SKlearn librabry , flask and docker.
+The article did not cover the in-depth knowledge Algorithms and how different algorithms have their performances and advanced ML topics .
+This can provide you with starting point so that explore more in this field of Machine learning.</p>
+<p>Thanks for reading.</p>
+<hr>
+<h2 id="links">Links</h2>
+<ul>
+<li><a href="https://www.python.org/">Python</a></li>
+<li><a href="https://flask.palletsprojects.com/en/2.1.x/">Flask</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Machine_learning">Machine Learning</a></li>
+<li><a href="https://docs.docker.com/get-started/">Docker</a></li>
+<li><a href="https://scikit-learn.org/stable/">Sklearn</a></li>
+<li><a href="https://pandas.pydata.org/">Pandas</a></li>
+<li><a href="https://numpy.org/">Numpy</a></li>
+</ul>
+<hr>
+
+</article>
+
+
+
+</html>
